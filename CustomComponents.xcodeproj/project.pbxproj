@@ -13,6 +13,13 @@
 		49765B6B25ADA3270054686B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49765B6925ADA3270054686B /* Main.storyboard */; };
 		49765B6D25ADA32A0054686B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49765B6C25ADA32A0054686B /* Assets.xcassets */; };
 		49765B7025ADA32A0054686B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49765B6E25ADA32A0054686B /* LaunchScreen.storyboard */; };
+		49765B7B25ADA4A10054686B /* NSTagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49765B7A25ADA4A10054686B /* NSTagView.xib */; };
+		49765B7F25ADA5580054686B /* NSTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49765B7D25ADA5580054686B /* NSTagCell.swift */; };
+		49765B8025ADA5580054686B /* NSTagCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49765B7E25ADA5580054686B /* NSTagCell.xib */; };
+		49765BE725B608130054686B /* NSTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49765BE625B608130054686B /* NSTagView.swift */; };
+		49765BEF25B616490054686B /* NSTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49765BEE25B616490054686B /* NSTag.swift */; };
+		49765BF425B6F6630054686B /* ColorKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49765BF325B6F6630054686B /* ColorKeys.swift */; };
+		49765BF925B6F6A10054686B /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49765BF825B6F6A10054686B /* Color.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +31,13 @@
 		49765B6C25ADA32A0054686B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		49765B6F25ADA32A0054686B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		49765B7125ADA32A0054686B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49765B7A25ADA4A10054686B /* NSTagView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NSTagView.xib; sourceTree = "<group>"; };
+		49765B7D25ADA5580054686B /* NSTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTagCell.swift; sourceTree = "<group>"; };
+		49765B7E25ADA5580054686B /* NSTagCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NSTagCell.xib; sourceTree = "<group>"; };
+		49765BE625B608130054686B /* NSTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTagView.swift; sourceTree = "<group>"; };
+		49765BEE25B616490054686B /* NSTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTag.swift; sourceTree = "<group>"; };
+		49765BF325B6F6630054686B /* ColorKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorKeys.swift; sourceTree = "<group>"; };
+		49765BF825B6F6A10054686B /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +70,46 @@
 		49765B6225ADA3270054686B /* CustomComponents */ = {
 			isa = PBXGroup;
 			children = (
+				49765BF725B6F6770054686B /* Assets */,
+				49765BF225B6F6540054686B /* Constants */,
+				49765B7825ADA3D60054686B /* Components */,
 				49765B6325ADA3270054686B /* AppDelegate.swift */,
 				49765B6525ADA3270054686B /* SceneDelegate.swift */,
 				49765B6725ADA3270054686B /* ViewController.swift */,
 				49765B6925ADA3270054686B /* Main.storyboard */,
-				49765B6C25ADA32A0054686B /* Assets.xcassets */,
 				49765B6E25ADA32A0054686B /* LaunchScreen.storyboard */,
 				49765B7125ADA32A0054686B /* Info.plist */,
 			);
 			path = CustomComponents;
+			sourceTree = "<group>";
+		};
+		49765B7825ADA3D60054686B /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				49765B7E25ADA5580054686B /* NSTagCell.xib */,
+				49765B7D25ADA5580054686B /* NSTagCell.swift */,
+				49765B7A25ADA4A10054686B /* NSTagView.xib */,
+				49765BE625B608130054686B /* NSTagView.swift */,
+				49765BEE25B616490054686B /* NSTag.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		49765BF225B6F6540054686B /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				49765BF325B6F6630054686B /* ColorKeys.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		49765BF725B6F6770054686B /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				49765B6C25ADA32A0054686B /* Assets.xcassets */,
+				49765BF825B6F6A10054686B /* Color.xcassets */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,6 +172,9 @@
 				49765B7025ADA32A0054686B /* LaunchScreen.storyboard in Resources */,
 				49765B6D25ADA32A0054686B /* Assets.xcassets in Resources */,
 				49765B6B25ADA3270054686B /* Main.storyboard in Resources */,
+				49765B8025ADA5580054686B /* NSTagCell.xib in Resources */,
+				49765B7B25ADA4A10054686B /* NSTagView.xib in Resources */,
+				49765BF925B6F6A10054686B /* Color.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,8 +186,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				49765B6825ADA3270054686B /* ViewController.swift in Sources */,
+				49765BE725B608130054686B /* NSTagView.swift in Sources */,
 				49765B6425ADA3270054686B /* AppDelegate.swift in Sources */,
+				49765BEF25B616490054686B /* NSTag.swift in Sources */,
 				49765B6625ADA3270054686B /* SceneDelegate.swift in Sources */,
+				49765B7F25ADA5580054686B /* NSTagCell.swift in Sources */,
+				49765BF425B6F6630054686B /* ColorKeys.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

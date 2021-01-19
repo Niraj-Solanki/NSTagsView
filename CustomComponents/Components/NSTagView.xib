@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NSTagView" customModule="CustomComponents" customModuleProvider="target">
+            <connections>
+                <outlet property="collectionView" destination="fQr-3I-AjB" id="vjH-xj-DUR"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="usA-Tu-DTT"/>
+                <outlet property="errorLabel" destination="h6C-fb-yNM" id="fed-zb-Ryi"/>
+                <outlet property="headerLabel" destination="mmv-Hz-UB8" id="dTq-dO-3Ks"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="277" height="120"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Header" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mmv-Hz-UB8">
+                    <rect key="frame" x="0.0" y="0.0" width="277" height="14"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" id="aHE-T9-5KT"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="fQr-3I-AjB">
+                    <rect key="frame" x="0.0" y="40" width="277" height="80"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="9Ti-dJ-ZNr"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="riO-5Y-6aa">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="imB-pM-kew"/>
+                        <outlet property="delegate" destination="-1" id="xBr-pJ-Q9P"/>
+                    </connections>
+                </collectionView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h6C-fb-yNM">
+                    <rect key="frame" x="0.0" y="14" width="277" height="14"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" id="3RS-6E-eeb"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="h6C-fb-yNM" firstAttribute="top" secondItem="mmv-Hz-UB8" secondAttribute="bottom" id="2Oj-d6-sAv"/>
+                <constraint firstItem="h6C-fb-yNM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="3W3-rx-Z4V"/>
+                <constraint firstAttribute="trailing" secondItem="h6C-fb-yNM" secondAttribute="trailing" id="9ZD-dn-S82"/>
+                <constraint firstAttribute="trailing" secondItem="fQr-3I-AjB" secondAttribute="trailing" id="Kqm-bJ-ZgC"/>
+                <constraint firstItem="mmv-Hz-UB8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Tve-YU-T4x"/>
+                <constraint firstItem="fQr-3I-AjB" firstAttribute="top" secondItem="h6C-fb-yNM" secondAttribute="bottom" constant="12" id="d3X-Ug-a0j"/>
+                <constraint firstItem="mmv-Hz-UB8" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="iub-xt-vpC"/>
+                <constraint firstAttribute="bottom" secondItem="fQr-3I-AjB" secondAttribute="bottom" id="n64-hU-JTf"/>
+                <constraint firstAttribute="trailing" secondItem="mmv-Hz-UB8" secondAttribute="trailing" id="qrS-FV-qB3"/>
+                <constraint firstItem="fQr-3I-AjB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ye7-bf-2E6"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="22.463768115942031" y="-155.35714285714286"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
