@@ -20,6 +20,7 @@ class ViewController: UIViewController {
             religionTags.append(tag)
         }
         religionTagsView.items = religionTags
+        
     }
 
 

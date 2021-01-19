@@ -8,8 +8,6 @@
 import UIKit
 struct NSTag {
     
-    //MARK:- Objects
-    
     //Mandatory
     var title:String?
     

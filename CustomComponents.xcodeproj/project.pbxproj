@@ -20,6 +20,7 @@
 		49765BEF25B616490054686B /* NSTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49765BEE25B616490054686B /* NSTag.swift */; };
 		49765BF425B6F6630054686B /* ColorKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49765BF325B6F6630054686B /* ColorKeys.swift */; };
 		49765BF925B6F6A10054686B /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49765BF825B6F6A10054686B /* Color.xcassets */; };
+		49765C0925B718130054686B /* NSTagsProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49765C0825B718130054686B /* NSTagsProperty.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		49765BEE25B616490054686B /* NSTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTag.swift; sourceTree = "<group>"; };
 		49765BF325B6F6630054686B /* ColorKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorKeys.swift; sourceTree = "<group>"; };
 		49765BF825B6F6A10054686B /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
+		49765C0825B718130054686B /* NSTagsProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTagsProperty.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,11 +88,7 @@
 		49765B7825ADA3D60054686B /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				49765B7E25ADA5580054686B /* NSTagCell.xib */,
-				49765B7D25ADA5580054686B /* NSTagCell.swift */,
-				49765B7A25ADA4A10054686B /* NSTagView.xib */,
-				49765BE625B608130054686B /* NSTagView.swift */,
-				49765BEE25B616490054686B /* NSTag.swift */,
+				49765C0425B717D20054686B /* Tags */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -110,6 +108,43 @@
 				49765BF825B6F6A10054686B /* Color.xcassets */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		49765C0425B717D20054686B /* Tags */ = {
+			isa = PBXGroup;
+			children = (
+				49765C0725B717FF0054686B /* Models */,
+				49765C0625B717F20054686B /* TagView */,
+				49765C0525B717E20054686B /* TagCell */,
+			);
+			path = Tags;
+			sourceTree = "<group>";
+		};
+		49765C0525B717E20054686B /* TagCell */ = {
+			isa = PBXGroup;
+			children = (
+				49765B7E25ADA5580054686B /* NSTagCell.xib */,
+				49765B7D25ADA5580054686B /* NSTagCell.swift */,
+			);
+			path = TagCell;
+			sourceTree = "<group>";
+		};
+		49765C0625B717F20054686B /* TagView */ = {
+			isa = PBXGroup;
+			children = (
+				49765B7A25ADA4A10054686B /* NSTagView.xib */,
+				49765BE625B608130054686B /* NSTagView.swift */,
+			);
+			path = TagView;
+			sourceTree = "<group>";
+		};
+		49765C0725B717FF0054686B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				49765BEE25B616490054686B /* NSTag.swift */,
+				49765C0825B718130054686B /* NSTagsProperty.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,6 +224,7 @@
 				49765BE725B608130054686B /* NSTagView.swift in Sources */,
 				49765B6425ADA3270054686B /* AppDelegate.swift in Sources */,
 				49765BEF25B616490054686B /* NSTag.swift in Sources */,
+				49765C0925B718130054686B /* NSTagsProperty.swift in Sources */,
 				49765B6625ADA3270054686B /* SceneDelegate.swift in Sources */,
 				49765B7F25ADA5580054686B /* NSTagCell.swift in Sources */,
 				49765BF425B6F6630054686B /* ColorKeys.swift in Sources */,
