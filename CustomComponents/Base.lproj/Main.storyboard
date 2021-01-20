@@ -16,9 +16,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FQB-ud-AmU" customClass="NSTagView" customModule="CustomComponents" customModuleProvider="target">
-                                <rect key="frame" x="20" y="83" width="374" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="314" placeholderIntrinsicHeight="128" translatesAutoresizingMaskIntoConstraints="NO" id="FQB-ud-AmU" customClass="NSTagView" customModule="CustomComponents" customModuleProvider="target">
+                                <rect key="frame" x="20" y="94" width="374" height="128"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="type">
@@ -29,6 +28,11 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                        <constraints>
+                            <constraint firstItem="FQB-ud-AmU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="2F8-ZC-ZUr"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="FQB-ud-AmU" secondAttribute="trailing" constant="20" id="OHd-ps-cfv"/>
+                            <constraint firstItem="FQB-ud-AmU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="sem-N5-o6L"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="religionTagsView" destination="FQB-ud-AmU" id="sd4-PD-UsY"/>
@@ -39,6 +43,11 @@
             <point key="canvasLocation" x="100.00000000000001" y="97.767857142857139"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="FQB-ud-AmU">
+            <size key="intrinsicContentSize" width="314" height="128"/>
+        </designable>
+    </designables>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

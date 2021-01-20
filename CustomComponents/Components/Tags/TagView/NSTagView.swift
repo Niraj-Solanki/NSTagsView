@@ -35,9 +35,9 @@ enum SelectionEnum:Int {
         case .normal:
             return ColorKeys.NG100
         case .highlighted:
-            return ColorKeys.NG300
+            return ColorKeys.NG100
         case .selected:
-            return ColorKeys.NG300
+            return ColorKeys.P50
         }
     }
     
@@ -45,12 +45,23 @@ enum SelectionEnum:Int {
     func borderColor() -> UIColor {
         switch self {
         case .normal:
-            return ColorKeys.P50
+            return ColorKeys.NG300
         case .highlighted:
-            return ColorKeys.P200
+            return ColorKeys.NG300
         case .selected:
             return ColorKeys.P200
         }
+    }
+}
+//Optional - tagSelectedCallBack(classView:ComponentView, tag:NSTag,index:Int)
+
+protocol NSTagViewDelegate : AnyObject {
+    func tagSelectedCallBack(tagView:NSTagView,selectedTag:NSTag,index:Int)
+}
+
+extension NSTagViewDelegate {
+    func tagSelectedCallBack(tagView:Self,selectedTag:NSTag,index:Int){
+        // Now its an optional Methods
     }
 }
 
@@ -64,6 +75,7 @@ enum SelectionEnum:Int {
     
     //MARK:- Objects
     private var tagsProperty:NSTagsProperty = NSTagsProperty()
+    weak var delegate : NSTagViewDelegate?
     
     //MARK:- Properties
     var selectionType:NSTagViewSelectionType = .singleSelection{
@@ -225,15 +237,7 @@ enum SelectionEnum:Int {
         }
     }
     
-    
-    //    init Methods
-    //    initwithNoSelection(Items:[NSTag],headerTitle:String?)
-    //    initWithSingleSelection(Items:[NSTag],headerTitle:String?,resetFlag:Bool)
-    //    initWithMultiSelection(Items:[NSTag],headerTitle:String?)
-    //
-    
     //MARK:- Blocks
-    
     
     //MARK:- Life Cycle
     override init(frame: CGRect) {
@@ -262,12 +266,12 @@ enum SelectionEnum:Int {
     
     private func commonInit() {
         Bundle.init(for: NSTagView.self).loadNibNamed("NSTagView", owner: self, options: nil)
-        clipsToBounds = true
         contentView.fixInView(self)
+        clipsToBounds = true
         
         collectionView.register(UINib.init(nibName: "NSTagCell", bundle: nil), forCellWithReuseIdentifier: "NSTagCell")
         collectionView.collectionViewLayout = LeftAlignedLayout()
-        
+        collectionView.allowsMultipleSelection = true
         resetValue()
         updateUI()
     }
@@ -281,8 +285,40 @@ enum SelectionEnum:Int {
         
     }
     
-    //MARK:- Public Methods
+    //MARK:- Public Methdos
+    func insertTags(newTags:[NSTag])
+    {
+        items.append(contentsOf: newTags)
+    }
     
+    func insert(newTag:NSTag,index:Int)
+    {
+        // Safe Check
+        if items.count >= index {
+            items.insert(newTag, at: index)
+        }
+    }
+    
+    func removeTag(index:Int){
+        // Safe Check
+        if items.count > index {
+            items.remove(at: index)
+        }
+    }
+    
+    func removeAllTags(){
+        items.removeAll()
+    }
+    
+    func getAllSelectedTags() -> [NSTag]{
+        return items.filter({ (currentTag) -> Bool in
+            return (currentTag.isSelected == true) ? true : false
+        })
+    }
+    
+    func reloadData() {
+        collectionView.reloadData()
+    }
     
     //MARK:- Animations
     
@@ -293,12 +329,15 @@ enum SelectionEnum:Int {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let tagCell:NSTagCell = collectionView.dequeueReusableCell(withReuseIdentifier: "NSTagCell", for: indexPath) as!  NSTagCell
-        tagCell.configureCell(tag: items[indexPath.row])
+        tagCell.configureCell(tagModel: items[indexPath.row],propertyModel: tagsProperty)
         return tagCell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {        
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize.init(width: Int.random(in: 80..<150), height: 36)
+        return CGSize.init(width: 100, height: 36)
     }
 }
 

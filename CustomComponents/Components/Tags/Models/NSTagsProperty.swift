@@ -15,16 +15,16 @@ class NSTagsProperty {
     var rightIcon:UIImage?
     var leftSelectedIcon:UIImage?
     var rightSelectedIcon:UIImage?
-    var textColor:UIColor?
-    var textSelectedColor:UIColor?
-    var backgroundColor:UIColor?
-    var backgroundSelectedColor:UIColor?
-    var borderColor:UIColor?
-    var borderSelectedColor:UIColor?
-    var cornerRadius:CGFloat?
+    var textColor:UIColor = SelectionEnum.normal.textColor()
+    var textSelectedColor:UIColor = SelectionEnum.selected.textColor()
+    var backgroundColor:UIColor = SelectionEnum.normal.backgroundColor()
+    var backgroundSelectedColor:UIColor = SelectionEnum.selected.backgroundColor()
+    var borderColor:UIColor = SelectionEnum.normal.borderColor()
+    var borderSelectedColor:UIColor = SelectionEnum.selected.borderColor()
+    var cornerRadius:CGFloat = 0
     var font:UIFont?
-    var borderWidth:CGFloat?
-    var borderSelectedWidth:CGFloat?
+    var borderWidth:CGFloat = 1
+    var borderSelectedWidth:CGFloat = 1
     var isSelected = false
     var primaryKey = 0
     var enableSelection =  true
