@@ -13,6 +13,7 @@ class NSTagCell: UICollectionViewCell {
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     
+    
     //Icons
     @IBOutlet weak var rightIconImageView: UIImageView!
     @IBOutlet weak var leftIconImageView: UIImageView!
@@ -20,8 +21,6 @@ class NSTagCell: UICollectionViewCell {
     @IBOutlet weak var leftIconViewWidthConstraint: NSLayoutConstraint!
     
     //MARK:- Objects
-    var tagModel:NSTag?
-    var propertyModel:NSTagsProperty?
     private var ImageIconSize:CGFloat = 24
     
     //MARK:- LifeCycle
@@ -30,19 +29,9 @@ class NSTagCell: UICollectionViewCell {
         // Initialization code
     }
     
-    override var isSelected: Bool{
-        didSet{
-            tagModel?.isSelected = isSelected
-            commonUpdate()
-        }
-    }
-    
     //MARK:- Custom Methods
     func configureCell(tagModel:NSTag,propertyModel:NSTagsProperty) {
         titleLabel.text = tagModel.title
-        
-        self.tagModel = tagModel
-        self.propertyModel = propertyModel
         
         if tagModel.cornerRadius != nil {
             layer.cornerRadius = tagModel.cornerRadius ?? 0
@@ -53,16 +42,14 @@ class NSTagCell: UICollectionViewCell {
         else{
             layer.cornerRadius = frame.height / 2
         }
-
-        commonUpdate()
+        commonUpdate(tagModel:tagModel,propertyModel:propertyModel)
     }
     
-    private func commonUpdate() {
-        guard let tagModel = tagModel, let propertyModel = propertyModel else { return }
+    private func commonUpdate(tagModel:NSTag,propertyModel:NSTagsProperty) {
         
         if tagModel.isSelected {
             titleLabel.textColor = (tagModel.textSelectedColor != nil) ? tagModel.textSelectedColor : propertyModel.textSelectedColor
-            backgroundColor = (tagModel.backgroundSelectedColor != nil) ? tagModel.backgroundSelectedColor : propertyModel.backgroundSelectedColor
+            mainView.backgroundColor = (tagModel.backgroundSelectedColor != nil) ? tagModel.backgroundSelectedColor : propertyModel.backgroundSelectedColor
             layer.borderWidth = (tagModel.borderSelectedWidth != nil) ? tagModel.borderSelectedWidth ?? 1 : propertyModel.borderSelectedWidth
             layer.borderColor = (tagModel.borderSelectedColor != nil) ? tagModel.borderSelectedColor?.cgColor : propertyModel.borderSelectedColor.cgColor
             
@@ -99,7 +86,7 @@ class NSTagCell: UICollectionViewCell {
         }
         else{
             titleLabel.textColor = (tagModel.textColor != nil) ? tagModel.textColor : propertyModel.textColor
-            backgroundColor = (tagModel.backgroundColor != nil) ? tagModel.backgroundColor : propertyModel.backgroundSelectedColor
+            mainView.backgroundColor = (tagModel.backgroundColor != nil) ? tagModel.backgroundColor : propertyModel.backgroundColor
             layer.borderWidth = (tagModel.borderWidth != nil) ? tagModel.borderWidth ?? 1 : propertyModel.borderWidth
             layer.borderColor = (tagModel.borderColor != nil) ? tagModel.borderColor?.cgColor : propertyModel.borderColor.cgColor
             

@@ -15,10 +15,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        religionTagsView.rightSelectedIcon = UIImage.init(named: "tick")
-        religionTagsView.rightIcon = UIImage.init(named: "plusIcon")
-        religionTagsView.stringItems = ["One","Two","Three","Four","Five"]
-        religionTagsView.insert(newTag: NSTag.init(title: "Work",rightIcon: UIImage(named: "engineer")), index: 3)
+        religionTagsView.stringItems = ["One","Two","Three","Four","Five","Niraj Solanki","Six","Seven","Eight","Nine","Niraj Solanki","Ten","Blahh Blahh","Four","Five","Niraj Solanki","Two","Three","Four","Five","Done"]
+        religionTagsView.insert(newTag: NSTag.init(title: "Work",leftIcon: UIImage(named: "engineer")), index: 3)
     }
 
 

@@ -52,6 +52,17 @@ enum SelectionEnum:Int {
             return ColorKeys.P200
         }
     }
+    
+    func errorLabelColor() -> UIColor {
+        switch self {
+        case .normal:
+            return ColorKeys.NG800
+        case .highlighted:
+            return ColorKeys.NG300
+        case .selected:
+            return ColorKeys.ERROR_SOLID
+        }
+    }
 }
 //Optional - tagSelectedCallBack(classView:ComponentView, tag:NSTag,index:Int)
 
@@ -76,6 +87,8 @@ extension NSTagViewDelegate {
     //MARK:- Objects
     private var tagsProperty:NSTagsProperty = NSTagsProperty()
     weak var delegate : NSTagViewDelegate?
+    private var lastSelectedIndexForSingleSelection = -1 // Default is None
+    private var originalItemsForReset:[NSTag] = []
     
     //MARK:- Properties
     var selectionType:NSTagViewSelectionType = .singleSelection{
@@ -219,8 +232,6 @@ extension NSTagViewDelegate {
     
     @IBInspectable var tagsSpace:CGFloat = 8 {
         didSet{
-            
-            updateUI()
         }
     }
     
@@ -233,7 +244,7 @@ extension NSTagViewDelegate {
     @IBInspectable var maxSelectionLimit:Int = 0
     @IBInspectable var maxSelectionLimitExceedMessage:String = ""{
         didSet{
-            updateUI()
+            errorLabel.text = maxSelectionLimitExceedMessage
         }
     }
     
@@ -333,11 +344,122 @@ extension NSTagViewDelegate {
         return tagCell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {        
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // Validate Selections
+        switch selectionType {
+        case .singleSelection:
+            
+            if isResetEnable {
+                if items[indexPath.row].isSelected {
+                    items = originalItemsForReset
+                }
+                else{
+                    originalItemsForReset = items
+                    items.removeAll()
+                    items.append(originalItemsForReset[indexPath.row])
+                    items[0].setSelection(isSelected: true)
+                }
+            }
+            else {
+                
+                var lastIndexPath = IndexPath.init(row: indexPath.row, section: indexPath.section)
+                // Mark Selected Current item and set to last select item
+                if lastSelectedIndexForSingleSelection == -1
+                {
+                    items[indexPath.row].setSelection(isSelected:  true)
+                    lastSelectedIndexForSingleSelection = indexPath.row
+                }
+                // if lastSelectedItem is same as current index then set it to false.
+                else if lastSelectedIndexForSingleSelection == indexPath.row {
+                    items[lastSelectedIndexForSingleSelection].setSelection(isSelected:false)
+                    lastSelectedIndexForSingleSelection = -1 // Reset to no selected Item
+                }
+                // Set false last Selected Item and Mark selected New item.
+                else if lastSelectedIndexForSingleSelection > -1 && lastSelectedIndexForSingleSelection <= items.count {
+                    items[lastSelectedIndexForSingleSelection].setSelection(isSelected:false)
+                    items[indexPath.row].setSelection(isSelected:  true)
+                    lastIndexPath.row = lastSelectedIndexForSingleSelection
+                    lastSelectedIndexForSingleSelection = indexPath.row
+                }
+                else
+                {
+                    // Something went wrong
+                }
+            }
+            collectionView.reloadData()
+        case .multiSelection:
+            if maxSelectionLimit != 0 {
+                if getAllSelectedTags().count < maxSelectionLimit
+                {
+                    items[indexPath.row].setSelection(isSelected:  !items[indexPath.row].isSelected)
+                    errorLabel.textColor = SelectionEnum.normal.errorLabelColor()
+                }
+                else if items[indexPath.row].isSelected && getAllSelectedTags().count >= maxSelectionLimit {
+                    items[indexPath.row].setSelection(isSelected: false)
+                    errorLabel.textColor = SelectionEnum.normal.errorLabelColor()
+                }
+                else{
+                    errorLabel.textColor = SelectionEnum.selected.errorLabelColor()
+                }
+            }
+            else
+            {
+                items[indexPath.row].setSelection(isSelected:  !items[indexPath.row].isSelected)
+            }
+            collectionView.reloadData()
+        default:
+            print("Dont have to do annything. for noSelection")
+        }    
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize.init(width: 100, height: 36)
+        return sizeForIndex(index: indexPath.row, collectionWidth: collectionView
+                                .frame.width)
+    }
+    
+    
+    
+    func sizeForIndex(index:Int,collectionWidth:CGFloat) -> CGSize {
+        
+        let sizingCell:NSTagCell = (UINib.init(nibName: "NSTagCell", bundle: nil).instantiate(withOwner: nil, options: nil).first as? NSTagCell)!
+        
+        var size = sizingCell.frame.size
+        sizingCell.titleLabel.text = items[index].title
+        // Left Right Margin + Icon Size
+        size.width = (sizingCell.titleLabel.intrinsicContentSize.width + 24) + iconSize(index: index
+        )
+        size.width = min(size.width,collectionWidth - 16)
+        return size
+    }
+    
+    func iconSize(index:Int) -> CGFloat {
+        var newSize:CGFloat = 0
+        
+        if items[index].isSelected {
+            //Right Icon
+            if (items[index].rightSelectedIcon != nil ||  tagsProperty.rightSelectedIcon != nil) && items[index].isSelected
+            {
+                newSize = 24
+            }
+            
+            //Left Icon
+            if (items[index].leftSelectedIcon != nil ||  tagsProperty.leftSelectedIcon != nil) && items[index].isSelected
+            {
+                newSize = newSize + 24
+            }
+        }
+        else{
+            //Right Icon
+            if items[index].rightIcon != nil ||  tagsProperty.rightIcon != nil  {
+                newSize = 24
+            }
+            //Left Icon
+            if items[index].leftIcon != nil || tagsProperty.leftIcon != nil  {
+                newSize = newSize + 24
+            }
+        }
+        return newSize
     }
 }
 
@@ -354,6 +476,7 @@ class LeftAlignedLayout: UICollectionViewFlowLayout {
             }
             
             layoutAttribute.frame.origin.x = leftMargin
+            
             
             leftMargin += layoutAttribute.frame.width + minimumInteritemSpacing
             maxY = max(layoutAttribute.frame.maxY , maxY)
