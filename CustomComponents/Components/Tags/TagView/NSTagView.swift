@@ -67,11 +67,11 @@ enum SelectionEnum:Int {
 //Optional - tagSelectedCallBack(classView:ComponentView, tag:NSTag,index:Int)
 
 protocol NSTagViewDelegate : AnyObject {
-    func tagSelectedCallBack(tagView:NSTagView,selectedTag:NSTag,index:Int)
+    func didTapOnTag(tagView:NSTagView,tag:NSTag)
 }
 
 extension NSTagViewDelegate {
-    func tagSelectedCallBack(tagView:Self,selectedTag:NSTag,index:Int){
+    func didTapOnTag(tagView:NSTagView,tag:NSTag){
         // Now its an optional Methods
     }
 }
@@ -82,13 +82,14 @@ extension NSTagViewDelegate {
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet var contentView: UIView!
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionView: DynamicCollectionView!
     
     //MARK:- Objects
     private var tagsProperty:NSTagsProperty = NSTagsProperty()
     weak var delegate : NSTagViewDelegate?
     private var lastSelectedIndexForSingleSelection = -1 // Default is None
     private var originalItemsForReset:[NSTag] = []
+    private var alignedLayout = AlignedLayout()
     
     //MARK:- Properties
     var selectionType:NSTagViewSelectionType = .singleSelection{
@@ -122,7 +123,7 @@ extension NSTagViewDelegate {
     
     @IBInspectable var headerTitle:String = "" {
         didSet{
-            updateUI()
+            headerLabel.text = headerTitle
         }
     }
     
@@ -232,14 +233,11 @@ extension NSTagViewDelegate {
     
     @IBInspectable var tagsSpace:CGFloat = 8 {
         didSet{
+            alignedLayout.tagsSpacing = tagsSpace
         }
     }
     
-    @IBInspectable var linesSpce:CGFloat = 8 {
-        didSet{
-            updateUI()
-        }
-    }
+    @IBInspectable var linesSpace:CGFloat = 8
     
     @IBInspectable var maxSelectionLimit:Int = 0
     @IBInspectable var maxSelectionLimitExceedMessage:String = ""{
@@ -281,8 +279,7 @@ extension NSTagViewDelegate {
         clipsToBounds = true
         
         collectionView.register(UINib.init(nibName: "NSTagCell", bundle: nil), forCellWithReuseIdentifier: "NSTagCell")
-        collectionView.collectionViewLayout = LeftAlignedLayout()
-        collectionView.allowsMultipleSelection = true
+        collectionView.collectionViewLayout = alignedLayout
         resetValue()
         updateUI()
     }
@@ -346,6 +343,12 @@ extension NSTagViewDelegate {
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+        // If Tag selection is not enabled then return.
+        if !items[indexPath.row].enableSelection {
+            return
+        }
+        
         // Validate Selections
         switch selectionType {
         case .singleSelection:
@@ -386,6 +389,9 @@ extension NSTagViewDelegate {
                 {
                     // Something went wrong
                 }
+                
+                //Delegate
+                delegate?.didTapOnTag(tagView: self, tag: items[indexPath.row])
             }
             collectionView.reloadData()
         case .multiSelection:
@@ -408,9 +414,12 @@ extension NSTagViewDelegate {
                 items[indexPath.row].setSelection(isSelected:  !items[indexPath.row].isSelected)
             }
             collectionView.reloadData()
+            
+            //Delegate
+            delegate?.didTapOnTag(tagView: self, tag: items[indexPath.row])
         default:
             print("Dont have to do annything. for noSelection")
-        }    
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -418,9 +427,11 @@ extension NSTagViewDelegate {
                                 .frame.width)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return linesSpace
+    }
     
-    
-    func sizeForIndex(index:Int,collectionWidth:CGFloat) -> CGSize {
+    private func sizeForIndex(index:Int,collectionWidth:CGFloat) -> CGSize {
         
         let sizingCell:NSTagCell = (UINib.init(nibName: "NSTagCell", bundle: nil).instantiate(withOwner: nil, options: nil).first as? NSTagCell)!
         
@@ -433,7 +444,7 @@ extension NSTagViewDelegate {
         return size
     }
     
-    func iconSize(index:Int) -> CGFloat {
+    private func iconSize(index:Int) -> CGFloat {
         var newSize:CGFloat = 0
         
         if items[index].isSelected {
@@ -463,9 +474,18 @@ extension NSTagViewDelegate {
     }
 }
 
-class LeftAlignedLayout: UICollectionViewFlowLayout {
+class AlignedLayout: UICollectionViewFlowLayout {
     
+    //MARK:- Properties
+    var tagsSpacing:CGFloat = 8
+    
+    //MARK:- Override Methods
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+       return leftAlign(rect: rect)
+    }
+    
+    private func leftAlign(rect:CGRect) -> [UICollectionViewLayoutAttributes]?
+    {
         let attributes = super.layoutAttributesForElements(in: rect)
         
         var leftMargin = sectionInset.left
@@ -478,7 +498,7 @@ class LeftAlignedLayout: UICollectionViewFlowLayout {
             layoutAttribute.frame.origin.x = leftMargin
             
             
-            leftMargin += layoutAttribute.frame.width + minimumInteritemSpacing
+            leftMargin += layoutAttribute.frame.width + tagsSpacing
             maxY = max(layoutAttribute.frame.maxY , maxY)
         }
         return attributes
@@ -498,5 +518,17 @@ extension UIView
     }
 }
 
+public class DynamicCollectionView: UICollectionView {
+    override public func layoutSubviews() {
+        super.layoutSubviews()
+        if !bounds.size.equalTo(intrinsicContentSize) {
+            invalidateIntrinsicContentSize()
+        }
+    }
 
+    override public var intrinsicContentSize: CGSize {
+        let intrinsicContentSize: CGSize = contentSize
+        return intrinsicContentSize
+    }
+}
 

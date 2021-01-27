@@ -29,7 +29,16 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="fQr-3I-AjB">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h6C-fb-yNM">
+                    <rect key="frame" x="0.0" y="17" width="414" height="0.0"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" id="3RS-6E-eeb"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="109" bounces="NO" bouncesZoom="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="fQr-3I-AjB" customClass="DynamicCollectionView" customModule="CustomComponents" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="29" width="414" height="109"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
@@ -46,15 +55,6 @@
                         <outlet property="delegate" destination="-1" id="xBr-pJ-Q9P"/>
                     </connections>
                 </collectionView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h6C-fb-yNM">
-                    <rect key="frame" x="0.0" y="17" width="414" height="0.0"/>
-                    <constraints>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" id="3RS-6E-eeb"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
@@ -70,7 +70,7 @@
                 <constraint firstItem="fQr-3I-AjB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ye7-bf-2E6"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="22.463768115942031" y="-155.35714285714286"/>
+            <point key="canvasLocation" x="-66.666666666666671" y="-156.02678571428569"/>
         </view>
     </objects>
     <resources>

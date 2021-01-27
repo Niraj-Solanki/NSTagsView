@@ -9,7 +9,7 @@ import UIKit
 struct NSTag {
     
     //Mandatory
-    var title:String?
+    var title:String = ""
     
     //Optionals
     var leftIcon:UIImage?
@@ -35,7 +35,7 @@ struct NSTag {
     init(title:String,
          primaryKey:Int = 0,
          isSelected:Bool = false,
-         enableSelection:Bool = false,
+         enableSelection:Bool = true,
          leftIcon:UIImage? = nil,rightIcon:UIImage? = nil,
          leftSelectedIcon:UIImage? = nil,rightSelectedIcon:UIImage? = nil,
          textColor:UIColor? = nil,textSelectedColor:UIColor? = nil,
